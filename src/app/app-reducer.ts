@@ -26,24 +26,30 @@ const slice = createSlice({
       state.status = action.payload.status;
     },
     setAppInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
-      state.isInitialized = action.payload.isInitialized
+      state.isInitialized = action.payload.isInitialized;
     }
 
+  },
+  selectors: {
+    selectStatus: sliceState => sliceState.status,
+    selectError: sliceState => sliceState.error,
+    selectIsInitialized: sliceState => sliceState.isInitialized
   }
 });
 
 export const appReducer = slice.reducer;
 export const appAction = slice.actions;
+export const {selectStatus,selectError,selectIsInitialized} = slice.selectors
 export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
 
-export const initializeAppTC = ():AppThunk => (dispatch) => {
+export const initializeAppTC = (): AppThunk => (dispatch) => {
   authAPI.me().then((res) => {
     if (res.data.resultCode === 0) {
       dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
     } else {
     }
 
-    dispatch(appAction.setAppInitialized({isInitialized:true}));
+    dispatch(appAction.setAppInitialized({ isInitialized: true }));
   });
 };
 

@@ -13,11 +13,15 @@ const slice = createSlice({
     setIsLoggedIn: (state,action:PayloadAction<{isLoggedIn: boolean}>) => {
       state.isLoggedIn = action.payload.isLoggedIn
     }
+  },
+  selectors:{
+    selectIsLoggedIn: sliceState => sliceState.isLoggedIn
   }
 });
 
 export const authReducer = slice.reducer
 export const authActions = slice.actions
+export const {selectIsLoggedIn} = slice.selectors
 
 
 export const loginTC = (data: LoginParamsType):AppThunk => (dispatch) => {

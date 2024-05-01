@@ -48,11 +48,15 @@ const slice = createSlice({
         state.push({...el,filter: "all", entityStatus: "idle"})
       })
     }
+  },
+  selectors:{
+    selectTodolist: sliceState => sliceState
   }
 });
 
 export const todolistsReducer = slice.reducer;
 export const todolistAction = slice.actions;
+export const {selectTodolist} = slice.selectors
 export type TodolistInitialStateType = ReturnType<typeof slice.getInitialState>
 
 export const fetchTodolistsTC = (): AppThunk => {
